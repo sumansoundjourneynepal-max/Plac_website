@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const admin_faq_controller_1 = require("../../controllers/admin.faq.controller");
+const router = (0, express_1.Router)();
+router.get("/", admin_faq_controller_1.getAllFaqs);
+router.post("/", admin_faq_controller_1.createFaq);
+router.put("/:id", admin_faq_controller_1.updateFaq);
+router.delete("/:id", admin_faq_controller_1.deleteFaq);
+exports.default = router;
