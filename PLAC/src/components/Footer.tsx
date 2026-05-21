@@ -30,7 +30,7 @@ const Footer = () => {
               <span className="font-serif text-lg text-accent font-semibold">Peace Love & Art</span>
             </div>
             <p className="font-sans text-sm leading-relaxed mb-4 max-w-xs">
-              Sound healing classes and tools that bring peace to your life — while every booking funds free care for cancer patients.
+              Sound healing classes and tools that bring peace to your life - while every booking funds free care for cancer patients.
             </p>
             <p className="font-sans text-xs text-accent/40 mb-5">London, UK · Online worldwide</p>
             {/* Social links */}

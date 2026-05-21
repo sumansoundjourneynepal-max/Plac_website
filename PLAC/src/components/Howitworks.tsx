@@ -6,19 +6,19 @@ const STEPS = [
   {
     step: '1',
     title: 'Book a Free Consultation',
-    desc: 'A gentle 20-minute conversation with one of our practitioners. No pressure — just an honest exploration of where you are and what might serve you best.',
+    desc: 'A gentle 20-minute conversation with one of our practitioners. No pressure - just an honest exploration of where you are and what might serve you best.',
     detail: 'Available online or in-person',
   },
   {
     step: '2',
     title: 'Choose Your Path',
-    desc: 'Whether you prefer live group sound baths, one-to-one sessions, guided self-practice tools, or a blend — we design an experience that fits your life.',
+    desc: 'Whether you prefer live group sound baths, one-to-one sessions, guided self-practice tools, or a blend - we design an experience that fits your life.',
     detail: 'Flexible scheduling, online & in-person',
   },
   {
     step: '3',
     title: 'Begin Your Practice',
-    desc: 'Arrive, be held, and let the sound do the work. Most members notice a meaningful shift in their first session. Some describe it as the deepest rest they've felt in years.',
+    desc: 'Arrive, be held, and let the sound do the work. Most members notice a meaningful shift in their first session. Some describe it as the deepest rest they\'ve felt in years.',
     detail: 'Beginner-friendly, all welcome',
   },
   {

@@ -8,7 +8,7 @@ const TESTIMONIALS = [
     role: 'Retired Teacher, 67',
     avatar: 'MH',
     color: 'bg-sage/20 text-primary',
-    quote: 'I came in sceptical and left in tears — the good kind. After my husband's diagnosis, I'd forgotten what stillness felt like. The sound bath gave it back to me within the first session. I now attend weekly and volunteer to bring other patients from the oncology ward.',
+    quote: 'I came in sceptical and left in tears - the good kind. After my husband\'s diagnosis, I\'d forgotten what stillness felt like. The sound bath gave it back to me within the first session. I now attend weekly and volunteer to bring other patients from the oncology ward.',
     stars: 5,
   },
   {
@@ -16,7 +16,7 @@ const TESTIMONIALS = [
     role: 'Software Engineer, 38',
     avatar: 'DK',
     color: 'bg-secondary/15 text-primary',
-    quote: 'I was running on caffeine and cortisol for a decade. A colleague dragged me to a session almost as a joke. Three months later I sleep through the night, I'm kinder at home, and I've recommended it to half my team. The science makes sense — the experience is indescribable.',
+    quote: 'I was running on caffeine and cortisol for a decade. A colleague dragged me to a session almost as a joke. Three months later I sleep through the night, I\'m kinder at home, and I\'ve recommended it to half my team. The science makes sense - the experience is indescribable.',
     stars: 5,
   },
   {
@@ -24,7 +24,7 @@ const TESTIMONIALS = [
     role: 'Oncology Nurse, 44',
     avatar: 'PS',
     color: 'bg-warm/60 text-primary',
-    quote: 'As someone who works with cancer patients every day, I was moved to discover this community funds free sessions for them. But beyond the mission, the healing itself is real. I've seen it change the quality of life for patients I work with. This is extraordinary work.',
+    quote: 'As someone who works with cancer patients every day, I was moved to discover this community funds free sessions for them. But beyond the mission, the healing itself is real. I\'ve seen it change the quality of life for patients I work with. This is extraordinary work.',
     stars: 5,
   },
   {
@@ -32,7 +32,7 @@ const TESTIMONIALS = [
     role: 'Financial Director, 52',
     avatar: 'JR',
     color: 'bg-primary/10 text-primary',
-    quote: 'I manage stress for a living — other people's, anyway. I had none left for myself. The singing bowl sessions re-tuned something in me that I can't fully articulate. My blood pressure is down, my focus is up, and I actually enjoy Sunday mornings again.',
+    quote: 'I manage stress for a living - other people\'s, anyway. I had none left for myself. The singing bowl sessions re-tuned something in me that I can\'t fully articulate. My blood pressure is down, my focus is up, and I actually enjoy Sunday mornings again.',
     stars: 5,
   },
   {
@@ -40,7 +40,7 @@ const TESTIMONIALS = [
     role: 'Yoga Instructor, 29',
     avatar: 'AL',
     color: 'bg-sage/20 text-primary',
-    quote: 'I thought I already had a strong practice. Sound healing went to places yoga couldn't reach. The combination of the two completely transformed my teaching — and my own relationship with peace.',
+    quote: 'I thought I already had a strong practice. Sound healing went to places yoga couldn\'t reach. The combination of the two completely transformed my teaching - and my own relationship with peace.',
     stars: 5,
   },
   {
@@ -48,7 +48,7 @@ const TESTIMONIALS = [
     role: 'Cancer Survivor, 58',
     avatar: 'TB',
     color: 'bg-secondary/15 text-primary',
-    quote: 'During chemo, the free sessions this community provided were the one hour each week I didn't feel like a patient. I felt like a person — whole, held, and at peace. I'm now in remission and I continue the practice. It saved more than my body.',
+    quote: 'During chemo, the free sessions this community provided were the one hour each week I didn\'t feel like a patient. I felt like a person - whole, held, and at peace. I\'m now in remission and I continue the practice. It saved more than my body.',
     stars: 5,
   },
 ];

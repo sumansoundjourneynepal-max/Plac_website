@@ -11,8 +11,8 @@ const PAINS = [
         <path d="M14 8v6l4 2" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
       </svg>
     ),
-    heading: 'You can't switch off',
-    body: 'Emails at midnight, meetings before breakfast — your nervous system is permanently in overdrive, and "relaxation" feels like another item on the to-do list.',
+    heading: 'You can\'t switch off',
+    body: 'Emails at midnight, meetings before breakfast - your nervous system is permanently in overdrive, and "relaxation" feels like another item on the to-do list.',
   },
   {
     icon: (
@@ -22,7 +22,7 @@ const PAINS = [
       </svg>
     ),
     heading: 'Stress has become your default',
-    body: 'Tension in your shoulders, shallow breathing, a mind that won't quiet down — you know something needs to change, but nothing you've tried has stuck.',
+    body: 'Tension in your shoulders, shallow breathing, a mind that won\'t quiet down - you know something needs to change, but nothing you\'ve tried has stuck.',
   },
   {
     icon: (
@@ -32,8 +32,8 @@ const PAINS = [
         <path d="M4 4l20 20" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" opacity="0.5"/>
       </svg>
     ),
-    heading: 'You've lost sight of joy',
-    body: 'Somewhere between the career, the responsibilities, and the constant noise, the lightness you used to feel has faded. You want it back — you just don't know how.',
+    heading: 'You\'ve lost sight of joy',
+    body: 'Somewhere between the career, the responsibilities, and the constant noise, the lightness you used to feel has faded. You want it back - you just don\'t know how.',
   },
 ];
 

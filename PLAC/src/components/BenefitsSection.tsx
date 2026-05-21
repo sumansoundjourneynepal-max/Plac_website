@@ -6,7 +6,7 @@ const BENEFITS = [
   {
     num: '01',
     title: 'Deep, Restorative Calm',
-    desc: 'Sound frequencies slow brainwave activity from stressed beta to peaceful alpha and theta states — the same states reached in deep meditation, accessed in minutes, not years of practice.',
+    desc: 'Sound frequencies slow brainwave activity from stressed beta to peaceful alpha and theta states - the same states reached in deep meditation, accessed in minutes, not years of practice.',
     color: 'bg-sage/15 text-sage',
   },
   {
@@ -24,7 +24,7 @@ const BENEFITS = [
   {
     num: '04',
     title: 'Better Sleep',
-    desc: 'Regular sound healing retrains your body's sleep response. Members report falling asleep faster, sleeping more deeply, and waking genuinely refreshed.',
+    desc: 'Regular sound healing retrains your body\'s sleep response. Members report falling asleep faster, sleeping more deeply, and waking genuinely refreshed.',
     color: 'bg-warm/60 text-secondary',
   },
   {
@@ -36,7 +36,7 @@ const BENEFITS = [
   {
     num: '06',
     title: 'Purposeful Living',
-    desc: 'Every class and tool you purchase directly funds care for cancer patients. Your healing journey creates ripples of healing in others — a gift that gives twice.',
+    desc: 'Every class and tool you purchase directly funds care for cancer patients. Your healing journey creates ripples of healing in others - a gift that gives twice.',
     color: 'bg-secondary/15 text-secondary',
   },
 ];
