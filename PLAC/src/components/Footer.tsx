@@ -39,6 +39,8 @@ const Footer = () => {
                 <a
                   key={s}
                   href="#"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-9 h-9 rounded-full border border-accent/15 flex items-center justify-center text-accent/50 hover:text-secondary hover:border-secondary/40 transition-colors text-xs font-sans"
                   aria-label={s}
                 >
@@ -55,7 +57,7 @@ const Footer = () => {
               <ul className="space-y-2.5">
                 {links.map((link) => (
                   <li key={link}>
-                    <a href="#" className="font-sans text-sm hover:text-secondary transition-colors">
+                    <a href="#" target="_blank" rel="noopener noreferrer" className="font-sans text-sm hover:text-secondary transition-colors">
                       {link}
                     </a>
                   </li>

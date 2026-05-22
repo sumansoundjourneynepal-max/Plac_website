@@ -6,6 +6,8 @@ import productRoutes from './product.routes';
 import orderRoutes from './order.routes';
 import reviewRoutes from './review.routes';
 import seoRoutes from './seo.routes';
+import classesRoutes from './classes.routes';
+import productsRoutes from './products.routes';
 
 
 const router = Router();
@@ -14,6 +16,8 @@ router.use('/auth', authRoutes);
 router.use('/users', userRoutes);
 router.use('/admin', adminRoutes);
 router.use('/products', productRoutes);
+router.use('/products', productsRoutes);
+router.use('/classes', classesRoutes);
 router.use('/orders', orderRoutes);
 router.use('/reviews', reviewRoutes);
 router.use('/', seoRoutes); 
