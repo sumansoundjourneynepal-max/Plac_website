@@ -27,7 +27,7 @@ const Navbar = () => {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.7, ease: 'easeOut' }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled ? 'bg-primary/95 backdrop-blur-md shadow-lg py-2' : 'bg-primary/20 backdrop-blur-sm py-3'
+        scrolled ? 'bg-white/95 backdrop-blur-md shadow-lg py-2' : 'bg-primary/20 backdrop-blur-sm py-3'
       }`}
     >
       <div className="max-w-6xl mx-auto px-6 flex items-center justify-between">
@@ -40,10 +40,10 @@ const Navbar = () => {
             <img
               src={logo}
               alt="Peace Love & Art"
-              style={{ width: '100%', height: '100%', objectFit: 'contain', size:'fit' }}
+              style={{ width: '100%', height: '100%', objectFit: 'contain' }}
             />
           </div>
-          <span className="font-serif font-bold text-xl text-primary group-hover:text-secondary transition-colors">
+          <span className="font-serif font-bold text-xl text-green-800 hover:text-secondary transition-colors">
             Peace Love & Art
           </span>
         </Link>
@@ -54,16 +54,18 @@ const Navbar = () => {
             <Link
               key={link.href}
               to={link.href}
-              className={`font-sans text-sm font-medium tracking-wide transition-colors hover:text-secondary ${
-                scrolled ? 'text-primary' : 'text-accent'
-              }`}
+              className="font-sans text-sm font-medium tracking-wide text-green-800 hover:text-secondary transition-colors"
             >
               {link.label}
             </Link>
           ))}
           <Link
             to="/admin"
-            className="bg-secondary text-cream px-5 py-2.5 rounded-full text-sm font-semibold hover:bg-primary transition-colors duration-300 shadow-sm"
+            className={`px-5 py-2.5 rounded-full text-sm font-semibold transition-colors duration-300 shadow-sm ${
+              scrolled
+                ? 'bg-primary text-white hover:bg-secondary'
+                : 'bg-secondary text-cream hover:bg-primary hover:text-white'
+            }`}
           >
             Admin Panel
           </Link>
@@ -71,7 +73,7 @@ const Navbar = () => {
 
         {/* Mobile burger */}
         <button
-          className={`md:hidden flex flex-col gap-1.5 p-1 ${scrolled ? 'text-primary' : 'text-accent'}`}
+          className="md:hidden flex flex-col gap-1.5 p-1 text-green-800"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle menu"
         >
@@ -89,7 +91,7 @@ const Navbar = () => {
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="md:hidden bg-primary/95 backdrop-blur-md overflow-hidden"
+            className="md:hidden bg-white/95 backdrop-blur-md overflow-hidden"
           >
             <nav className="flex flex-col px-6 py-4 gap-4">
               {NAV_LINKS.map((link) => (
@@ -97,7 +99,7 @@ const Navbar = () => {
                   key={link.href}
                   to={link.href}
                   onClick={() => setMenuOpen(false)}
-                  className="text-accent font-medium py-1 border-b border-accent/20 hover:text-secondary transition-colors"
+                  className="text-green-800 font-medium py-1 border-b border-green-800/20 hover:text-secondary transition-colors"
                 >
                   {link.label}
                 </Link>
@@ -105,7 +107,7 @@ const Navbar = () => {
               <Link
                 to="/admin"
                 onClick={() => setMenuOpen(false)}
-                className="bg-secondary text-cream text-center px-5 py-3 rounded-full font-semibold mt-2 hover:bg-primary transition-colors"
+                className="bg-primary text-white text-center px-5 py-3 rounded-full font-semibold mt-2 hover:bg-secondary transition-colors"
               >
                 Admin Panel
               </Link>
