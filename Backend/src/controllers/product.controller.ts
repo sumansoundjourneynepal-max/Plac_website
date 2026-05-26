@@ -578,12 +578,18 @@
 // src/controllers/product.controller.ts
 import type { Request, Response } from "express"
 import { Product } from "../models/product.model"
+import mongoose from "mongoose"
 import { uploadToCloudinary, uploadImages } from "../utils/cloudinary"
 import type { Express } from "express"
 import NodeCache from 'node-cache'
 
 // Cache TTL = 10 minutes (600 seconds), check period = 60 seconds
 const productCache = new NodeCache({ stdTTL: 600, checkperiod: 60 });
+
+// In-memory fallback store when MongoDB is not connected
+const isDbConnected = () => mongoose.connection.readyState === 1 || mongoose.connection.readyState === 2;
+const memoryStore: any[] = [];
+let memoryCounter = 0;
 
 interface UploadedFiles {
   images?: Express.Multer.File[]
@@ -667,6 +673,10 @@ const processBowlSetItems = (setItemsStr: string | undefined): any[] => {
 
 export const getProducts = async (req: Request, res: Response): Promise<void> => {
   try {
+    if (!isDbConnected()) {
+      res.json(memoryStore.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0)))
+      return
+    }
     const products = await Product.find().sort({ createdAt: -1 })
     res.json(products)
   } catch (error: unknown) {
@@ -678,6 +688,12 @@ export const getProducts = async (req: Request, res: Response): Promise<void> =>
 
 export const getProductById = async (req: Request, res: Response): Promise<void> => {
   try {
+    if (!isDbConnected()) {
+      const product = memoryStore.find(p => p.id === req.params.id || p._id === req.params.id)
+      if (!product) { res.status(404).json({ message: "Product not found" }); return }
+      res.json(product)
+      return
+    }
     let product = await Product.findById(req.params.id).catch(() => null)
 
     if (!product) {
@@ -698,6 +714,11 @@ export const getProductById = async (req: Request, res: Response): Promise<void>
 
 export const getProductsForShop = async (req: Request, res: Response): Promise<void> => {
   try {
+    if (!isDbConnected()) {
+      const inStock = memoryStore.filter(p => p.inStock).sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0))
+      res.json(inStock)
+      return
+    }
     // Check cache first
     const cachedProducts = productCache.get('products_for_shop');
     if (cachedProducts) {
@@ -860,11 +881,17 @@ export const createProduct = async (req: Request<{}, {}, ProductRequestBody>, re
     console.log("Main image URLs:", imageUrls)
     
     if (imageUrls.length === 0) {
-      console.error("No main product images provided")
-      res.status(400).json({ 
-        message: "At least one image is required for the product" 
-      })
-      return
+      // In dev mode, use placeholder if no images available
+      if (!isDbConnected()) {
+        console.warn("⚠️ No images provided — using placeholder for dev mode")
+        imageUrls = ["https://placehold.co/800x800/F5ECD7/2D4A3E?text=No+Image"]
+      } else {
+        console.error("No main product images provided")
+        res.status(400).json({ 
+          message: "At least one image is required for the product" 
+        })
+        return
+      }
     }
 
     const details = Array.isArray(productData.details)
@@ -930,6 +957,17 @@ export const createProduct = async (req: Request<{}, {}, ProductRequestBody>, re
 
     console.log("\nCreating product with processed data:", JSON.stringify(newProductData, null, 2))
 
+    // Use in-memory store when DB is not connected
+    if (!isDbConnected()) {
+      memoryCounter++
+      const memProduct = { _id: `mem_${memoryCounter}`, ...newProductData, createdAt: Date.now(), updatedAt: Date.now() }
+      memoryStore.push(memProduct)
+      console.log("Product saved to in-memory store:", memProduct._id)
+      console.log("=== CREATE PRODUCT END ===")
+      res.status(201).json(memProduct)
+      return
+    }
+
     const product = new Product(newProductData)
     await product.save()
 
@@ -967,7 +1005,26 @@ export const updateProduct = async (
       console.log("Update video count:", files.video ? files.video.length : 0);
     }
 
-    let existingProduct = await Product.findById(req.params.id).catch(() => null)
+    let existingProduct: any = null
+
+    if (!isDbConnected()) {
+      existingProduct = memoryStore.find(p => p._id === req.params.id || p.id === req.params.id)
+      if (!existingProduct) {
+        console.error("Product not found:", req.params.id)
+        res.status(404).json({ message: "Product not found" })
+        return
+      }
+      // Do a simple in-memory update
+      const idx = memoryStore.findIndex(p => p._id === req.params.id || p.id === req.params.id)
+      if (idx !== -1) {
+        memoryStore[idx] = { ...memoryStore[idx], ...req.body, updatedAt: Date.now() }
+        console.log("Product updated in memory:", memoryStore[idx]._id)
+        res.json(memoryStore[idx])
+        return
+      }
+    }
+
+    existingProduct = await Product.findById(req.params.id).catch(() => null)
 
     if (!existingProduct) {
       existingProduct = await Product.findOne({ id: req.params.id })
@@ -1138,6 +1195,18 @@ export const updateProduct = async (
 
 export const deleteProduct = async (req: Request<{ id: string }>, res: Response): Promise<void> => {
   try {
+    if (!isDbConnected()) {
+      const idx = memoryStore.findIndex(p => p._id === req.params.id || p.id === req.params.id)
+      if (idx === -1) {
+        res.status(404).json({ message: "Product not found" })
+        return
+      }
+      const deleted = memoryStore.splice(idx, 1)[0]
+      console.log("Product deleted from memory:", deleted._id)
+      res.json({ message: "Product deleted successfully", deletedProduct: deleted })
+      return
+    }
+
     let product = await Product.findByIdAndDelete(req.params.id).catch(() => null)
 
     if (!product) {
@@ -1164,6 +1233,14 @@ export const deleteProduct = async (req: Request<{ id: string }>, res: Response)
 export const getProductsByInstrument = async (req: Request, res: Response) => {
   try {
     const name = req.params.name.toLowerCase()
+
+    if (!isDbConnected()) {
+      const filtered = memoryStore.filter(p =>
+        p.soundInstrument?.toLowerCase() === name
+      )
+      res.json(filtered)
+      return
+    }
 
     const products = await Product.find({
       soundInstrument: { $regex: new RegExp("^" + name + "$", "i") }

@@ -14,8 +14,18 @@ export const productAPI = {
   getAll: () => axiosInstance.get('/products'),
   getById: (id: string) => axiosInstance.get(`/products/${id}`),
   getForShop: () => axiosInstance.get('/products/shop'),
-  create: (data: any) => axiosInstance.post('/products', data),
-  update: (id: string, data: any) => axiosInstance.put(`/products/${id}`, data),
+  create: (data: any) => {
+    const isFormData = data instanceof FormData;
+    return axiosInstance.post('/products', data, {
+      headers: isFormData ? { 'Content-Type': 'multipart/form-data' } : {},
+    });
+  },
+  update: (id: string, data: any) => {
+    const isFormData = data instanceof FormData;
+    return axiosInstance.put(`/products/${id}`, data, {
+      headers: isFormData ? { 'Content-Type': 'multipart/form-data' } : {},
+    });
+  },
   delete: (id: string) => axiosInstance.delete(`/products/${id}`),
 };
 

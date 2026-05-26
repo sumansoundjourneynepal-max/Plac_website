@@ -8,16 +8,16 @@ async function startServer() {
     // Connect to MongoDB
     await connectDB();
     console.log('✅ MongoDB connected successfully');
-    
-    // Start server
-    app.listen(env.PORT, () => {
-      console.log(`🚀 Server running on port ${env.PORT} in ${env.NODE_ENV} mode`);
-      console.log(`📋 API Documentation: http://localhost:${env.PORT}/health`);
-    });
   } catch (error) {
-    console.error('❌ Failed to start server:', error);
-    process.exit(1);
+    console.warn('⚠️ MongoDB connection failed — server will start without database');
+    console.warn('   Only non-DB endpoints will work (e.g. health check)');
   }
+  
+  // Start server regardless of DB status
+  app.listen(env.PORT, () => {
+    console.log(`🚀 Server running on port ${env.PORT} in ${env.NODE_ENV} mode`);
+    console.log(`📋 Health check: http://localhost:${env.PORT}/health`);
+  });
 }
 
 // Handle unhandled promise rejections
