@@ -57,6 +57,18 @@ const Footer = () => {
                   <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.68v12.7a2.85 2.85 0 1 1-5.45-2.36c.34-.52.74-.98 1.25-1.38V9.66a6.62 6.62 0 0 0-5.56 3.41 6.61 6.61 0 0 0 5.63 10.85 6.62 6.62 0 0 0 5.44-10.01V12.58a8.1 8.1 0 0 0 5.78 2.17v-3.68a4.9 4.9 0 0 1-1.63-.3z"/>
                 </svg>
               </a>
+              <a
+                href="mailto:peaceloveandart@example.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-9 h-9 rounded-full border border-accent/15 flex items-center justify-center text-accent/50 hover:text-secondary hover:border-secondary/40 transition-colors"
+                aria-label="Email"
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="2" y="4" width="20" height="16" rx="2"/>
+                  <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+                </svg>
+              </a>
             </div>
           </div>
 
@@ -80,7 +92,7 @@ const Footer = () => {
         {/* Divider */}
         <div className="border-t border-accent/8 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="font-sans text-xs text-accent/35">
-            © 2026 Peace Love and Art Community. All rights reserved.
+            © 2019 Peace Love and Art Community. All rights reserved.
           </p>
           <p className="font-sans text-xs text-accent/35 flex items-center gap-1.5">
             <span className="w-2 h-2 rounded-full bg-secondary/60 inline-block"/>

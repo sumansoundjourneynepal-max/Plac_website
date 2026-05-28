@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import logo from '../assets/PLAC.png';
+import { useAuth } from '../context/AuthContext';
 
 const NAV_LINKS = [
   { label: 'Shop', href: '/shop' },
@@ -14,12 +15,20 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+  const { isLoggedIn, isAdmin, username, logout } = useAuth();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener('scroll', onScroll);
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+    setMenuOpen(false);
+  };
 
   return (
     <motion.header
@@ -49,7 +58,7 @@ const Navbar = () => {
         </Link>
 
         {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-8">
+        <nav className="hidden md:flex items-center gap-6">
           {NAV_LINKS.map((link) => (
             <Link
               key={link.href}
@@ -59,16 +68,43 @@ const Navbar = () => {
               {link.label}
             </Link>
           ))}
-          <Link
-            to="/admin"
-            className={`px-5 py-2.5 rounded-full text-sm font-semibold transition-colors duration-300 shadow-sm ${
-              scrolled
-                ? 'bg-primary text-white hover:bg-secondary'
-                : 'bg-secondary text-cream hover:bg-primary hover:text-white'
-            }`}
-          >
-            Admin Panel
-          </Link>
+
+          {isLoggedIn && isAdmin ? (
+            <div className="flex items-center gap-3">
+              <span className="font-sans text-sm text-green-800">Welcome, {username}!</span>
+              <Link
+                to="/admin"
+                className={`px-5 py-2.5 rounded-full text-sm font-semibold transition-colors duration-300 shadow-sm ${
+                  scrolled
+                    ? 'bg-primary text-white hover:bg-secondary'
+                    : 'bg-secondary text-cream hover:bg-primary hover:text-white'
+                }`}
+              >
+                Admin Panel
+              </Link>
+              <button
+                onClick={handleLogout}
+                className={`px-5 py-2.5 rounded-full text-sm font-semibold transition-colors duration-300 shadow-sm ${
+                  scrolled
+                    ? 'bg-red-600 text-white hover:bg-red-700'
+                    : 'bg-red-500 text-white hover:bg-red-600'
+                }`}
+              >
+                Logout
+              </button>
+            </div>
+          ) : (
+            <Link
+              to="/login"
+              className={`px-5 py-2.5 rounded-full text-sm font-semibold transition-colors duration-300 shadow-sm ${
+                scrolled
+                  ? 'bg-primary text-white hover:bg-secondary'
+                  : 'bg-secondary text-cream hover:bg-primary hover:text-white'
+              }`}
+            >
+              Login
+            </Link>
+          )}
         </nav>
 
         {/* Mobile burger */}
@@ -104,13 +140,46 @@ const Navbar = () => {
                   {link.label}
                 </Link>
               ))}
-              <Link
-                to="/admin"
-                onClick={() => setMenuOpen(false)}
-                className="bg-primary text-white text-center px-5 py-3 rounded-full font-semibold mt-2 hover:bg-secondary transition-colors"
-              >
-                Admin Panel
-              </Link>
+              
+              {isLoggedIn && isAdmin ? (
+                <>
+                  <div className="py-2 border-b border-green-800/20">
+                    <p className="text-green-800 font-sans text-sm">Welcome, {username}!</p>
+                  </div>
+                  <Link
+                    to="/admin"
+                    onClick={() => setMenuOpen(false)}
+                    className="bg-primary text-white text-center px-5 py-3 rounded-full font-semibold hover:bg-secondary transition-colors"
+                  >
+                    Admin Panel
+                  </Link>
+                  <button
+                    onClick={() => {
+                      handleLogout();
+                    }}
+                    className="bg-red-600 text-white text-center px-5 py-3 rounded-full font-semibold hover:bg-red-700 transition-colors"
+                  >
+                    Logout
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link
+                    to="/login"
+                    onClick={() => setMenuOpen(false)}
+                    className="bg-primary text-white text-center px-5 py-3 rounded-full font-semibold hover:bg-secondary transition-colors"
+                  >
+                    Login
+                  </Link>
+                  <Link
+                    to="/signup"
+                    onClick={() => setMenuOpen(false)}
+                    className="bg-secondary text-white text-center px-5 py-3 rounded-full font-semibold hover:bg-primary transition-colors"
+                  >
+                    Sign Up
+                  </Link>
+                </>
+              )}
             </nav>
           </motion.div>
         )}
