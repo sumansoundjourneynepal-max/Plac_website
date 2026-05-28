@@ -44,7 +44,7 @@ const Navbar = () => {
             />
           </div>
           <span className="font-serif font-bold text-xl text-green-800 hover:text-secondary transition-colors">
-            Peace Love & Art
+            Peace Love & Art Community
           </span>
         </Link>
 
